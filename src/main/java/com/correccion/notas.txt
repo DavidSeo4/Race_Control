@@ -1,0 +1,11 @@
+1. Si hago muchas operaciones random puedo hacer una clase de utilidades en la que meter esas cosas. HACER ESA CLASE CON COSITAS
+
+2. Pedir los atributos en el constructor de un objeto:
+ public Car(){
+        this.marca = com.campusdual.racecontrol.controller.util.Input.string("Marca del coche");
+        this.modelo = com.campusdual.racecontrol.controller.util.Input.string("Modelo del coche");
+    }
+
+3. Implementando la interfaz Comparable<ClaseObjeto> podemos comparar objetos de la misma clase por atributos EN EL METODO CompareTo
+***Ver notas de firefox pantallazo
+
