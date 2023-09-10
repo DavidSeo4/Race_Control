@@ -19,7 +19,7 @@ public abstract class Carrera {
         clasificacionCarrera = new ArrayList<>();
     }
 
-    public void celebrarCarrera(){
+    public void celebrarCarrera(boolean isTorneo){
 
     }
 

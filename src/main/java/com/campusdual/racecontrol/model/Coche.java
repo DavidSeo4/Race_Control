@@ -16,13 +16,14 @@ public class Coche implements Comparable<Coche>{
     }
 
     public int acelerar_frenar(){
-        int aleatorio = (int)Math.floor(Math.random()*(2-1+1)+1);
-        if (aleatorio==1){
+
+        int aleatorio = (int)Math.floor(Math.random()*(3-1+1)+1);
+        if (aleatorio>1){
             int aceleracion = (int)Math.floor(Math.random()*(Coche.maxVelocidad-1+1)+1);
             this.velocidad += aceleracion;
             // Limitar la velocidad máxima a 100
             if (this.velocidad > Coche.maxVelocidad) {
-                this.velocidad = 100;
+                this.velocidad = 200;
             }
             velocidadTotalCarrera+=this.velocidad;
             return this.velocidad;

@@ -12,7 +12,7 @@ public class CarreraEstandar extends Carrera {
     }
 
     @Override
-    public void celebrarCarrera() {
+    public void celebrarCarrera(boolean isTorneo) {
 
         // Comparador personalizado para comparar por la velocidad/distancia total de la carrera//
         Comparator<Coche> comparador = Comparator.comparing(Coche::getVelocidadTotalCarrera);
