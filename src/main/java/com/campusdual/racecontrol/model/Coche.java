@@ -93,5 +93,15 @@ public class Coche implements Comparable<Coche>{
         this.velocidadTotalCarrera = velocidadTotalCarrera;
     }
 
-
+    @Override
+    public String toString() {
+        return "Coche{" +
+                "marca='" + marca + '\'' +
+                ", modelo='" + modelo + '\'' +
+                ", velocidad=" + velocidad +
+                ", pegatinaCoche='" + pegatinaCoche + '\'' +
+                ", puntuacion=" + puntuacion +
+                ", velocidadTotalCarrera=" + velocidadTotalCarrera +
+                '}';
+    }
 }

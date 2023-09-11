@@ -6,8 +6,6 @@ public abstract class Carrera {
 
     private String name;
     private ArrayList<Garaje> registroGarajes;
-
-    private ArrayList<Coche> podioCarrera; //El podio de una carrera son los 3 Coches que más distancia hayan recorrido en el mismo tiempo.
     private ArrayList<Coche> clasificacionCarrera;
     private boolean carreraCelebrada;
 
@@ -19,7 +17,7 @@ public abstract class Carrera {
         clasificacionCarrera = new ArrayList<>();
     }
 
-    public void celebrarCarrera(boolean isTorneo){
+    public void celebrarCarrera(boolean isTorneo, Torneo torneo){
 
     }
 
@@ -48,12 +46,14 @@ public abstract class Carrera {
         this.clasificacionCarrera = clasificacionCarrera;
     }
 
-    public ArrayList<Coche> getPodioCarrera() {
-        return podioCarrera;
-    }
-
-    public void setPodioCarrera(ArrayList<Coche> podioCarrera) {
-        this.podioCarrera = podioCarrera;
+    @Override
+    public String toString() {
+        return "Carrera{" +
+                "name='" + name + '\'' +
+                ", registroGarajes=" + registroGarajes +
+                ", clasificacionCarrera=" + clasificacionCarrera +
+                ", carreraCelebrada=" + carreraCelebrada +
+                '}';
     }
 
     public boolean isCarreraCelebrada() {

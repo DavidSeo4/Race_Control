@@ -1,15 +1,20 @@
 package com.campusdual.racecontrol.controller;
 
+import com.campusdual.racecontrol.GestionFicheros;
 import com.campusdual.racecontrol.model.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class MainControl {
 
     static ArrayList<Torneo> listaTorneos = new ArrayList<>();
     static ArrayList<Carrera> listaCarrerasDisponibles = new ArrayList<>();
     static ArrayList<Garaje> listaGarajesDisponibles = new ArrayList<>();
+    static ArrayList<Coche> listaCochesDisponibles = new ArrayList<>();
     static int torneoActivo = 0;
+    static GestionFicheros gestionFicheros = new GestionFicheros();
 
     public static void main(String[] args) {
 
@@ -42,9 +47,7 @@ public class MainControl {
                                 if (listaTorneos.get(torneoActivo).getClasificacion().isEmpty()) {
                                     System.out.println("Todavía no se ha celebrado ninguna carrera del torneo.");
                                 } else {
-                                    for (int i = 0; i < listaTorneos.get(torneoActivo).getClasificacion().size(); i++) {
-                                        System.out.println(i + "º el coche" + listaTorneos.get(torneoActivo).getClasificacion().get(i).getModelo() + " de la marca " + listaTorneos.get(torneoActivo).getClasificacion().get(i).getMarca() + " . Garaje: " + listaTorneos.get(torneoActivo).getClasificacion().get(i).getPegatinaCoche());
-                                    }
+                                   listaTorneos.get(torneoActivo).mostrarClasificacion();
                                 }
                                 break;
                             case 2:
@@ -54,14 +57,14 @@ public class MainControl {
                                 int menuCarrera = com.campusdual.racecontrol.controller.util.Input.integer();
                                 switch (menuCarrera) {
                                     case 1:
-                                        listaTorneos.get(torneoActivo).getCarrerasTorneo().get(carreraSelecionada).celebrarCarrera(true);
+                                        listaTorneos.get(torneoActivo).getCarrerasTorneo().get(carreraSelecionada).celebrarCarrera(true, listaTorneos.get(torneoActivo));
                                         break;
                                     case 2:
                                         if (listaTorneos.get(torneoActivo).getCarrerasTorneo().get(carreraSelecionada).getClasificacionCarrera().isEmpty()) {
                                             System.out.println("Todavía no se ha celebrado esta carrera.");
                                         } else {
                                             System.out.println("- La clasificación de la carrera fue:");
-                                            listaTorneos.get(torneoActivo).getCarrerasTorneo().get(carreraSelecionada).getClasificacionCarrera().forEach(elemento -> System.out.println(elemento.getModelo() + " con pegatina " + elemento.getPegatinaCoche())); //
+                                            listaTorneos.get(torneoActivo).getCarrerasTorneo().get(carreraSelecionada).getClasificacionCarrera().forEach(elemento -> System.out.println(elemento.getModelo() + " con pegatina " + elemento.getPegatinaCoche()));
                                             //AÑADIR PUNTUACIONES AL GLOBAL DEL TORNEO//
                                         }
                                         break;
@@ -83,10 +86,16 @@ public class MainControl {
                     System.out.println("Selecciona una de las carreras disponibles:");
                     mostrarAlgo("CarrerasDisponibles");
                     int carreraSeleccionada = com.campusdual.racecontrol.controller.util.Input.integer()-1;
-                    listaCarrerasDisponibles.get(carreraSeleccionada).celebrarCarrera(false);
+                    listaCarrerasDisponibles.get(carreraSeleccionada).celebrarCarrera(false, listaTorneos.get(torneoActivo));
                     break;
                 case 6:
-                    //LOS DATOS DEBEN GUARDARSE//
+                    //LOS DATOS DEBEN GUARDARSE AL CERRAR EL PROGRAMA//
+                    gestionFicheros.escribirFichero(listaCochesDisponibles, "coches.json");
+                    gestionFicheros.escribirFichero(listaGarajesDisponibles, "garajes.json");
+                    gestionFicheros.escribirFichero(listaCarrerasDisponibles, "carreras.json");
+                    gestionFicheros.escribirFichero(listaTorneos, "torneos.json");
+                    List<Coche> listaPrueba = gestionFicheros.leerFichero("coches.json");
+                    listaPrueba.forEach(e-> System.out.println(e.getModelo()));
                     salirAplicacion = true;
                     break;
 
@@ -118,6 +127,13 @@ public class MainControl {
                 contador++;
             }
         }
+        if (cosaAMostrar.equals("CochesDisponibles")) {
+            int contador = 1;
+            for (Coche c :listaCochesDisponibles) {
+                System.out.println(contador + "." + c.getModelo() + ". Garaje: "+ c.getPegatinaCoche());
+                contador++;
+            }
+        }
     }
 
     public static void rellenarDatos() {
@@ -134,6 +150,7 @@ public class MainControl {
         Coche coche10 = new Coche("Shk", "Fritto");
         Coche coche11 = new Coche("Servlet", "X34");
         Coche coche12 = new Coche("Jean", "Tempo");
+        listaCochesDisponibles.addAll(Arrays.asList(coche1,coche2,coche3,coche4,coche5,coche6,coche7,coche8,coche9,coche10,coche11,coche12));
 
         Garaje garaje1 = new Garaje("Garaje Ramon Hermida Comesaña");
         garaje1.añadirAlGaraje(coche1);
@@ -171,7 +188,6 @@ public class MainControl {
         carreras2.add(carrera4);
         carreras2.add(carrera2);
         carreras2.add(carrera5);
-
         listaCarrerasDisponibles.addAll(carreras);
         listaCarrerasDisponibles.addAll(carreras2);
 

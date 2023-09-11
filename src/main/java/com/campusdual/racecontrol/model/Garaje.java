@@ -36,4 +36,12 @@ public class Garaje {
     public void setPegatinaGaraje(String pegatinaGaraje) {
         this.pegatinaGaraje = pegatinaGaraje;
     }
+
+    @Override
+    public String toString() {
+        return "Garaje{" +
+                "cochesGaraje=" + cochesGaraje +
+                ", pegatinaGaraje='" + pegatinaGaraje + '\'' +
+                '}';
+    }
 }

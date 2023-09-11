@@ -1,6 +1,8 @@
 package com.campusdual.racecontrol.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class Torneo {
 
@@ -14,6 +16,18 @@ public class Torneo {
         clasificacion = new ArrayList<>();
         this.nombreTorneo = nombreTorneo;
         this.carrerasTorneo = carrerasTorneo;
+    }
+
+    public  void mostrarClasificacion(){
+        // Comparador personalizado para comparar por la velocidad/distancia total de la carrera//
+        Comparator<Coche> comparador = Comparator.comparing(Coche::getPuntuacion);
+        clasificacion.sort(comparador);
+        Collections.reverse(clasificacion);
+
+        for (int i =0; i<this.getClasificacion().size(); i++){
+            System.out.println("#"+ (i+1) +"º " + this.getClasificacion().get(i).getModelo()  +" con pegatina "+ this.getClasificacion().get(i).getPegatinaCoche() + "\n Puntos: " +
+                    this.getClasificacion().get(i).getPuntuacion());
+        }
     }
 
 
@@ -47,5 +61,15 @@ public class Torneo {
 
     public void setClasificacion(ArrayList<Coche> clasificacion) {
         this.clasificacion = clasificacion;
+    }
+
+    @Override
+    public String toString() {
+        return "Torneo{" +
+                "nombreTorneo='" + nombreTorneo + '\'' +
+                ", carrerasTorneo=" + carrerasTorneo +
+                ", ganadorTorneo=" + ganadorTorneo +
+                ", clasificacion=" + clasificacion +
+                '}';
     }
 }
